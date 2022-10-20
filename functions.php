@@ -36,3 +36,8 @@ function check_captcha($res){
   return $_SESSION['captcha'] == $res;
 }
  ?>
+
+
+<?php foreach ($variable as $key => $value): ?>
+
+<?php endforeach; ?>
