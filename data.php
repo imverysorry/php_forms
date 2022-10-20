@@ -9,7 +9,7 @@ $fields = [
       'requiered' => 1,
   ],
   'adress' =>  [
-      'field_name' => 'Адресс',
+      'field_name' => 'Адрес',
       'requiered' => 0,
   ],
   'phone' =>  [

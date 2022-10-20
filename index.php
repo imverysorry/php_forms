@@ -4,14 +4,13 @@
   require_once __DIR__ . '../functions.php';
 
   if (!empty($_POST)) {
-    debug($_POST);
     $fields = load($fields);
-    debug($fields);
     if ($errors = validate($fields)) {
-      debug ($errors);
+      $res = ['answer' => 'error', 'errors' => $errors];
     } else{
-      echo 'Ok';
+      $res = ['answer' => 'Ok', 'data' => $fields, 'captcha' => set_captcha()];
     }
+    exit(json_encode($res));
   }
  ?>
 
@@ -23,6 +22,7 @@
           content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
 </head
 
 
@@ -32,7 +32,7 @@
       <div class="row">
         <div class="col-md-6 offset-md-3">
 
-          <form method="post" class="row g-3 needs-validation" novalidate>
+          <form method="post" id = "form" class="row g-3 needs-validation" novalidate>
 
             <div class="form-group">
                 <label for="name">Имя</label>
@@ -51,8 +51,8 @@
             </div>
 
             <div class="form-group">
-                <label for="address">Адрес</label>
-                <input type="text" class="form-control" id="address" name="address">
+                <label for="adress">Адрес</label>
+                <input type="text" class="form-control" id="adress" name="adress">
             </div>
 
             <div class="form-group">
@@ -70,7 +70,7 @@
             </div>
 
             <div class="form-group">
-                <label for="captcha"><?= set_captcha()?></label>
+                <label for="captcha" id = "label-captcha"><?= set_captcha()?></label>
                 <input type="text" class="form-control" id="captcha" name="captcha" required>
             </div>
             <div class="invalid-feedback">
@@ -79,11 +79,18 @@
 
 
             <div class="form-group form-check">
-                <input name="agree" type="checkbox" class="form-check-input" id="agree">
                 <label class="form-check-label" for="agree">Соглашаюсь с обработкой персональных данных</label>
+                <input name="agree" type="checkbox" class="form-check-input" id="agree" required>
+            </div>
+            <div class="invalid-feedback">
+                Согласитесь с обработкой персональных данных
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
+
+            <div class="mt-3" id="answer">
+
+            </div>
 
             <div class="loader">
               <img src="animation.svg" alt="не нашел">
@@ -95,6 +102,8 @@
       </div>
     </div>
 
+
+    <script src="jquery-3.6.1.min.js"></script>
     <script src = 'main.js'></script>
 
   </body>
