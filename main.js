@@ -22,6 +22,3 @@
     }, false)
   })
 })()
-
-
-console.log ('test2')
